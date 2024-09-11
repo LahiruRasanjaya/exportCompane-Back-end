@@ -1,0 +1,104 @@
+
+// require('dotenv').config(); // Load environment variables from .env file
+
+// const express = require('express');
+// const mongoose = require('mongoose');
+// const app = express();
+// const cors = require('cors'); 
+
+// // Use environment variables
+// const port = process.env.PORT || 5000;
+// const mongodbUri = process.env.MONGODB_URI || 'mongodb://localhost:27017/employee_management';
+
+// // Middleware to parse JSON
+// app.use(express.json());
+
+// app.use(cors({
+//     origin: 'http://localhost:5173' // Your frontend URL
+//   }));
+
+// // Connect to MongoDB
+// mongoose.connect(mongodbUri, {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true
+// })
+// .then(() => console.log('Connected to MongoDB'))
+// .catch(err => console.error('Could not connect to MongoDB...', err));
+
+// // Define a test route
+// app.get('/', (req, res) => {
+//   res.send('API is working!');
+// });
+
+// // Import and use employee routes
+// const employeeRoutes = require('./routes/employeeRoutes');
+// const userRoutes = require('./routes/userRoutes');
+// const loansRoute = require('./routes/loansRoutes');
+// const advanceRoutes = require('./routes/advanceRoutes');
+// const foodItemRoutes = require('./routes/foodItemRoute');
+// const foodConsumptionRoutes = require('./routes/foodConsumptionRoute');
+
+// app.use('/api', employeeRoutes);
+// app.use('/api/users', userRoutes);
+// app.use('/', loansRoute); // Loans routes
+// app.use('/', advanceRoutes); // Advances routes
+// app.use('/api', foodItemRoutes);
+// app.use('/api', foodConsumptionRoutes);
+
+
+// // Start the server
+// app.listen(port, () => {
+//   console.log(`Server is running on port ${port}`);
+// });
+
+require('dotenv').config(); // Load environment variables from .env file
+
+const express = require('express');
+const mongoose = require('mongoose');
+const app = express();
+const cors = require('cors'); 
+
+// Use environment variables
+const port = process.env.PORT || 5000;
+const mongodbUri = process.env.MONGODB_URI || 'mongodb://localhost:27017/employee_management';
+
+// Middleware to parse JSON
+app.use(express.json());
+
+app.use(cors({
+    origin: 'http://localhost:5173' // Your frontend URL
+}));
+
+// Connect to MongoDB
+mongoose.connect(mongodbUri, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+})
+.then(() => console.log('Connected to MongoDB'))
+.catch(err => console.error('Could not connect to MongoDB...', err));
+
+// Define a test route
+app.get('/', (req, res) => {
+  res.send('API is working!');
+});
+
+// Import and use routes
+const employeeRoutes = require('./routes/employeeRoutes');
+const userRoutes = require('./routes/userRoutes');
+const loansRoute = require('./routes/loansRoutes');
+const advanceRoutes = require('./routes/advanceRoutes');
+const foodItemRoutes = require('./routes/foodItemRoute');
+const foodConsumptionRoutes = require('./routes/foodConsumptionRoute');
+
+app.use('/api', employeeRoutes);
+app.use('/api/users', userRoutes);
+app.use('/', loansRoute);
+app.use('/', advanceRoutes);
+app.use('/api/food-items', foodItemRoutes);
+app.use('/api/food-consumptions', foodConsumptionRoutes);
+
+// Start the server
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+});
+
