@@ -89,6 +89,7 @@ const loansRoute = require('./routes/loansRoutes');
 const advanceRoutes = require('./routes/advanceRoutes');
 const foodItemRoutes = require('./routes/foodItemRoute');
 const foodConsumptionRoutes = require('./routes/foodConsumptionRoute');
+const attendanceRoutes = require('./routes/employeeAttendanceRoute');
 
 app.use('/api', employeeRoutes);
 app.use('/api/users', userRoutes);
@@ -96,6 +97,12 @@ app.use('/', loansRoute);
 app.use('/', advanceRoutes);
 app.use('/api/food-items', foodItemRoutes);
 app.use('/api/food-consumptions', foodConsumptionRoutes);
+app.use('/api/attendance', attendanceRoutes); // Attendance routes
+app.use('/api/employees', employeeRoutes);    // Employee routes
+
+// Import and start the attendance reset cron job
+const resetAttendanceDaily = require('./utils/attendanceReset');
+resetAttendanceDaily(); // This will schedule the reset job to run every midnight
 
 // Start the server
 app.listen(port, () => {
