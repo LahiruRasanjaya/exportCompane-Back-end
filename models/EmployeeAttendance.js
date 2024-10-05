@@ -8,7 +8,9 @@ const attendanceSchema = new mongoose.Schema({
   workingHours: { type: Number, default: 0 }, // Calculated working hours
   OTHours: { type: Number, default: 0 },      // Calculated OT hours
   status: { type: String, enum: ['Present', 'Absent'], default: 'Absent' }, // Attendance status
-  specialDate: { type: Boolean}
+  specialDate: { type: Boolean},
+  entryTimeMarked: { type: Boolean},
+  exitTimeMarked: { type: Boolean}
 });
 
 const Attendance = mongoose.model('Attendance', attendanceSchema);
